@@ -1,8 +1,11 @@
 import type { GetStaticProps, GetStaticPropsResult, NextPage } from "next";
+import styles from "../styles/Home.module.css";
 import Head from "next/head";
 import getLinks from "../lib/link";
-import SOCIALS from "../models/socials";
 import ILink from "../types/link";
+
+// Components
+import ExternalLink from "../components/ExternalLink";
 
 type HomePageType = {
   links: ILink[];
@@ -12,16 +15,22 @@ const Home: NextPage<HomePageType> = ({ links }: HomePageType) => {
   return (
     <>
       <Head>
-        <title>Bio-ladder | </title>
+        <title>Bio-ladder</title>
       </Head>
 
-      {links.map((link) => (
-        <p key={link.platform}>
-          {SOCIALS[link.platform]}
-          {link.title}
-          {link.url}
-        </p>
-      ))}
+      <main>
+        <ul className={styles.link_container}>
+          {links.map(({ platform, title, url, color }) => (
+            <ExternalLink
+              key={title}
+              platform={platform}
+              title={title}
+              url={url}
+              color={color}
+            />
+          ))}
+        </ul>
+      </main>
     </>
   );
 };

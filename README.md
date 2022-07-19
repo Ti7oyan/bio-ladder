@@ -1,34 +1,85 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Bio-ladder
 
-## Getting Started
+Bio-ladder is a open-source tool to showcase social media profiles or profiles on other platforms. It's inspired by [linktree](https://linktr.ee/).
 
-First, run the development server:
+## How to use it
+
+While linktr.ee allows you to create a user and then append it to their domain, **Bio-ladder** wants you to decide how to deploy it, wherever you pick **GitHub Pages**, **Vercel**, **Heroku**, etc.
+
+To start using **Bio-ladder** just fork the repository and then clone it:
 
 ```bash
-npm run dev
-# or
-yarn dev
+git clone https://github.com/{your_username}/bio-ladder
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+or `gh repo clone {your_username}/bio-ladder` if you use `github-cli`.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+After that, `cd` to the recently created folder and install the dependencies, it's originally managed with `pnpm` but you can use any package manager.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Once you have it, run the development server with `pnpm run dev` (or the command your package manager uses).
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+**Bio-ladder** uses `Next.js` to take advantage of the SSG (Static Site Generation) and help the SEO and performance of the page.
 
-## Learn More
+Then, to really start customizing your **Bio-ladder**, you have to edit the `/data/links.ts` file.
 
-To learn more about Next.js, take a look at the following resources:
+## Editing the links
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+I tried to describe the interfaces the best I could, but I'm going to describe the steps anyways.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+So, once you are at the file, you will find a capped constant named `LINKS`, this will be your main and (hopefully) unique modification.
 
-## Deploy on Vercel
+Remove the links (if any) and replace them with yours following this pattern:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```ts
+const LINKS: ILink[] = [
+  {
+    platform: "PLATFORM_NAME", // This will be auto-completed. See /types/social.ts for the supported platforms.
+    title: "YOUR_TITLE", // Title to be displayed at the platform's card, can be anything.
+    url: "YOUR_URL", // URL to be redirected on card click. You can write it manually or use any of the getters I created. See /utils/getters.ts.
+    color: "HEX_CODE or CSS-PROPERTY", // This is optional. It will replace the default background color for the platform. It can be a HEX code (e.g.: #273) or a CSS property (e.g.: linear-gradient)
+  },
+];
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+And that's it! Your **Bio-ladder** is now updated.
+
+## Adding new platforms
+
+To add new platforms, you are going to modify two files: `/types/social.ts` (for auto-complete) and `/models/socials.tsx` (for icon and background color).
+
+1. Add the platform's uppercased name in `SocialType` at `/types/social.ts` like this:
+
+```ts
+type SocialType =
+  // All of the platforms...
+  "YOUR_PLATFORM" | "OTHER";
+```
+
+2. Add the platform's uppercased name in `SOCIALS` at `/models/socials.tsx` as a index, as well as its icon and color.
+
+```tsx
+import {
+  // All icon imports...
+  FaYourPlatform
+} from 'react-icons/fa'
+
+const SOCIALS: IDictionary = {
+  // All of the platforms...
+  YOUR_PLATFORM: {
+    icon: <FaYourPlatform />
+    color: 'YOUR_PLATFORM_COLOR'
+  }
+}
+```
+
+**NOTE**: You can import the icon from other package if FontAwesome doesn't have it. Check [react-icons](https://react-icons.github.io/react-icons) to look for your desired icon.
+
+Once you have added it, just create a new entry in `LINKS` at `/data/links.ts` as described on `How to use it`.
+
+## TO-DO
+
+- [ ]: User's profile picture, name and other personal data.
+- [ ]: Guide to deployment and configuration.
+- [X]: Support many of the most popular platforms.
+
+Copyright (c) 2022 Ticiano Morvan - MIT License

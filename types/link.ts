@@ -1,5 +1,8 @@
 import type SocialType from './social';
 
+/**
+ * @description An external link to a desired platform with a custom title.
+ */
 export default interface ILink {
   /**
    * Name of the platform.
@@ -18,4 +21,10 @@ export default interface ILink {
    * @example "https://instagram.com/ticianomorvan"
    */
   url: string;
+
+  /**
+   * Custom background color, will replace default parameter.
+   * @example "#927AF3" or "linear-gradient(...)"
+   */
+  color?: string;
 }

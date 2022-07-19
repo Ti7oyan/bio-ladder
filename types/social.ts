@@ -1,3 +1,6 @@
+/**
+ * @description The platforms currently supported. These will be associated to a icon later. 
+ */
 type SocialType =
   'INSTAGRAM'
   | 'FACEBOOK'
@@ -24,6 +27,6 @@ type SocialType =
   | 'STEAM'
   | 'TUMBLR'
   | 'WHATSAPP'
-  | 'OTHER'
+  | 'OTHER';
 
 export default SocialType
