@@ -16,5 +16,5 @@ export const getMediumURL = (name: string) => `https://medium.com/@${name}`
 export const getDeviantURL = (name: string) => `https://deviantart.com/${name}`
 export const getRedditURL = (name: string) => `https://reddit.com/user/${name}`
 export const getSoundcloudURL = (name: string) => `https://soundcloud.com/${name}`
-export const getSteamURL = (path: 'profiles' | 'id', id?: string, name?: string) => `https://steamcommunity.com/${path}/${path === 'id' ? name : id}`
+export const getSteamURL = (path: 'profiles' | 'id', id: string) => `https://steamcommunity.com/${path}/${id}`
 export const getTumblrURL = (name: string) => new URL(`https://${name}.tumblr.com`)

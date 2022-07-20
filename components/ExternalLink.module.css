@@ -1,20 +1,26 @@
 .container {
   border-radius: .5em;
-  width: 50%;
-  transition: all .5s;
-}
-
-.container:hover {
-  filter: brightness(1.15);
-  padding-block: 1.25em;
 }
 
 .card_container {
   display: flex;
   gap: 1em;
+  height: 100%;
   min-width: max-content;
   align-items: center;
   padding-inline: 1em;
+}
+
+.container, .card_container {
+  transition: all .5s;
+}
+
+.container:hover {
+  filter: brightness(1.15);
+}
+
+.container:hover > .card_container {
+  padding-block: 1.25em;
 }
 
 .title {
